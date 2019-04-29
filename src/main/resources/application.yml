@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: APIGETWAY
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7080/eureka/
+  instance:
+    prefer-ip-address: true
+
+ribbon:
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
+
+zuul:
+  routes:
+    prepare-data:
+      path: /application-nn/java/**
+      serviceId: prepare-data
+      strip-prefex: true
+    neural-network:
+      path: /application-nn/python/**
+      serviceId: neural-network
+      strip-prefex: true
